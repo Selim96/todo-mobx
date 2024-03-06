@@ -12,7 +12,7 @@ interface IProp {
 const TodoItem: React.FC<IProp> = ({todo}) => {
   const {id, title, status} = todo
   const dispatch = useAppDispatch()
-  const deleteTodoClick = (e: any):void => {
+  const deleteTodoClick = (e: React.MouseEvent<HTMLElement>):void => {
     dispatch(deleteTodo(id))
   }
   const changeStatus = (e: React.MouseEvent<HTMLElement>): void => {

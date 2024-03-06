@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import TodoItem from './components/TodoItem'
 import CreateForm from './components/CreateForm'
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   const filteredTodos = allTodos.map(todo => {
     if(status === null) return todo
     if(status === todo.status) return todo
-    return
+    return null
   })
   if(sorted) filteredTodos.sort((a, b) => Number(a?.status) - Number(b?.status))
   return (
@@ -33,8 +33,8 @@ const App: React.FC = () => {
         
         {allTodos && <ul className='todoList'>
           {[...filteredTodos].reverse().map((item) => {
-            if(item)
-              return <TodoItem todo={item}/>}
+            if(item) return <TodoItem todo={item}/>
+          }
           )}
         </ul> 
         }
