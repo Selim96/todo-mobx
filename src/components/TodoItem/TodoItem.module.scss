@@ -21,3 +21,21 @@
     line-height: 1.4;
     color: var(--logo-color);
 }
+
+.button {
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    filter: invert(1);
+}

@@ -3,6 +3,7 @@ import { ITodo } from "../../interfaces/interfaces"
 import s from './TodoItem.module.scss'
 import { useAppDispatch } from "../../redux/hooks"
 import { deleteTodo, changeTodoStatus } from "../../redux/slice"
+import iconDelete from '../../assets/images/trash.png'
 
 interface IProp {
   todo: ITodo
@@ -21,7 +22,7 @@ const TodoItem: React.FC<IProp> = ({todo}) => {
   return (
     <li key={id} className={s.item} onClick={changeStatus} style={{backgroundColor: !status ? "var(--red-label)" : 'var(--green-label)'}}>
       <p className={s.title}>{title}</p>
-      <button type="button" className={s.button} onClick={deleteTodoClick}>X</button>
+      <button type="button" className={s.button} onClick={deleteTodoClick}><img src={iconDelete} alt="icon" className={s.image}/></button>
     </li>
   )
 }

@@ -30,11 +30,15 @@ const Filter: React.FC = () => {
    
   return (
     <div className={s.filter_box}>
-      <div className={s.button} id="1" onClick={onChangeFilter}
+      <div className={s.button} key={1} id="1" onClick={onChangeFilter}
         style={{backgroundColor: status === null ? "var(--button)" : ''}}
       ><p>All</p><span>{countAll}</span></div>
-      <div className={s.button} id="2" onClick={onChangeFilter}><p>Completed</p><span>{countCompleted}</span></div>
-      <div className={s.button} id="3" onClick={onChangeFilter}><p>Current</p><span>{countCurrent}</span></div>
+      <div className={s.button} key={2} id="2" onClick={onChangeFilter}
+        style={status === true ? {backgroundColor:  "var(--green-label)", border: 'none'} : {}}
+      ><p>Completed</p><span>{countCompleted}</span></div>
+      <div className={s.button} key={3} id="3" onClick={onChangeFilter}
+        style={status === false ? {backgroundColor:  "var(--red-label)", border: 'none'} : {}}
+      ><p>Current</p><span>{countCurrent}</span></div>
     </div>
   )
 }
