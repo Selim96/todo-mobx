@@ -8,7 +8,7 @@ import allSelectors from './redux/selectors'
 import Container from './components/Container'
 import Filter from './components/Filter'
 import sortIcon from './assets/images/sort.png'
-
+import { Analytics } from '@vercel/analytics/react'
 
 
 const App: React.FC = () => {
@@ -42,6 +42,7 @@ const App: React.FC = () => {
       </Container>
       
       <ToastContainer />
+      <Analytics />
     </div>
   )
 }
