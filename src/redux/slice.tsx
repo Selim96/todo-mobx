@@ -29,11 +29,14 @@ const todoSlice = createSlice({
         return todo
       })
       state.allTodos = [...newArray]
+    },
+    changeFilter: (state, action: PayloadAction<boolean | null>) => {
+      state.filterStatus = action.payload
     } 
   },
 })
 
 const reducer = todoSlice.reducer
 
-export const { addNewTodo, deleteTodo, changeTodoStatus } = todoSlice.actions
+export const { addNewTodo, deleteTodo, changeTodoStatus, changeFilter } = todoSlice.actions
 export default reducer

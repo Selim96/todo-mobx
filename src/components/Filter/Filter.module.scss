@@ -1,0 +1,14 @@
+@import "../../stylesheet/mixin";
+
+.filter_box {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.button {
+    border: 2px solid var(--button);
+    margin-right: 3px;
+    color: var(--logo-color);
+    width: 100px;
+}
