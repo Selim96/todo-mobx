@@ -31,14 +31,14 @@ const App: React.FC = () => {
           <button className='sortBtn' style={sorted ? {backgroundColor: "white"} : {}} onClick={():void => setSorted(!sorted)}>Sort <img src={sortIcon} alt="sort icon" className='sortImg'/></button>
         </div>
         
-        {allTodos && <ul className='todoList'>
+        {!!allTodos.length && <ul className='todoList'>
           {[...filteredTodos].reverse().map((item) => {
             if(item) return <TodoItem todo={item}/>
           }
           )}
         </ul> 
         }
-        {allTodos.length === 0 && <p>Add new Todo</p>}
+        {allTodos.length === 0 && <p className='propouse'>Add new Todo</p>}
       </Container>
       
       <ToastContainer />
