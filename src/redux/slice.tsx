@@ -20,11 +20,20 @@ const todoSlice = createSlice({
       const newArray = state.allTodos.filter(todo => todo.id !== action.payload)
       state.allTodos = [...newArray]
       toast.warning("Todo is deleted!")
+    },
+    changeTodoStatus: (state, action: PayloadAction<string>) => {
+      const newArray = state.allTodos.map(todo => {
+        if(todo.id === action.payload) {
+          return {...todo, status: !todo.status}
+        }
+        return todo
+      })
+      state.allTodos = [...newArray]
     } 
   },
 })
 
 const reducer = todoSlice.reducer
 
-export const { addNewTodo, deleteTodo } = todoSlice.actions
+export const { addNewTodo, deleteTodo, changeTodoStatus } = todoSlice.actions
 export default reducer
