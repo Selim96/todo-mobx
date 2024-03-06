@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import TodoItem from './components/TodoItem'
+import CreateForm from './components/CreateForm'
+import { useAppSelector } from './redux/hooks'
+import allSelectors from './redux/selectors'
 
-function App() {
+
+
+const App: React.FC = () => {
+  const allTodos = useAppSelector(allSelectors.getAllTodos)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1 className='title'>My Todos</h1>
+      <CreateForm />
+      {allTodos && <ul>
+        {[...allTodos].reverse().map((item) => {
+          return <TodoItem todo={item}/>}
+        )}
+      </ul> 
+      }
+      {allTodos.length === 0 && <p>Add new Todo</p>}
+      <ToastContainer />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
