@@ -1,16 +1,17 @@
 import React from "react"
 import s from './Filter.module.scss'
-import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import allSelectors from "../../redux/selectors"
-import { changeFilter } from "../../redux/slice"
+import { observer } from "mobx-react-lite"
+import { useTodoContext } from "../../mobx/store"
 
-const Filter: React.FC = () => {
-    
-  const dispatch = useAppDispatch()
-  
-  const allTodos = useAppSelector(allSelectors.getAllTodos)
-  const status = useAppSelector(allSelectors.getStatus)
-  const countAll = allTodos.length
+const Filter: React.FC = observer(() => {
+  const store = useTodoContext();
+
+  console.log('filter render!')
+
+  const allTodos = store.getAllTodos();
+  const status = store.getFilterStatus();
+
+  const countAll = allTodos.length;
   let countCompleted = 0
   let countCurrent = 0
   allTodos.forEach(todo => {
@@ -23,9 +24,9 @@ const Filter: React.FC = () => {
 
   const onChangeFilter = (e: React.MouseEvent<HTMLElement>):void =>{
     const id = e.currentTarget.id
-    if(id === '1') dispatch(changeFilter(null))
-    if(id === '2') dispatch(changeFilter(true))
-    if(id === '3') dispatch(changeFilter(false))
+    if(id === '1') store.changeFilter(null)
+    if(id === '2') store.changeFilter(true)
+    if(id === '3') store.changeFilter(false)
   }
    
   return (
@@ -41,6 +42,6 @@ const Filter: React.FC = () => {
       ><p>Current</p><span>{countCurrent}</span></div>
     </div>
   )
-}
+})
 
 export default Filter

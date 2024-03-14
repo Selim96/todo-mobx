@@ -1,30 +1,31 @@
 import React, { useState } from "react"
 import s from './CreateForm.module.scss'
-import { useAppDispatch } from "../../redux/hooks"
-import { addNewTodo } from "../../redux/slice"
 import { nanoid } from "nanoid"
 import { toast } from "react-toastify"
+import { useTodoContext } from "../../mobx/store"
 
 const CreateForm: React.FC = () => {
   const [title, setTitle] = useState('')
-  const maxTitleLength = 20
+  const maxTitleLength = 20;
 
-  const dispatch = useAppDispatch()
+  console.log('form render!')
+
+  const store = useTodoContext();
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(e.target.value)
   }
 
   const onSubmit = (e: React.FormEvent<HTMLElement>): void => {
-    e.preventDefault()
+    e.preventDefault();
     if(title.length <= maxTitleLength) {
       const newTodo = {
         id: nanoid(),
         title: title.trim(),
         status: false
       }
-      dispatch(addNewTodo(newTodo))
-      setTitle('')
+      store.addNewTodo(newTodo);
+      setTitle('');
     } else {
       toast.error("To long Title for Todo!")
     }
@@ -36,6 +37,6 @@ const CreateForm: React.FC = () => {
       <button type="submit" className={s.button} onClick={onSubmit} disabled={!title.trim()}>Add</button>
     </form>
   )
-}
+};
 
 export default CreateForm
