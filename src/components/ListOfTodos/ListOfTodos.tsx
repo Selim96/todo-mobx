@@ -1,25 +1,33 @@
 import { observer } from "mobx-react-lite";
-import React, { useCallback, useState }  from "react";
+import React, { useCallback, useEffect, useState }  from "react";
 import { useTodoContext } from "../../mobx/store";
 import sortIcon from '../../assets/images/sort.png';
 import TodoItem from "../TodoItem";
+import { ITodo } from "../../interfaces/interfaces";
 
 const ListOfTodos:React.FC = observer(() => {
-    const [sorted, setSorted] = useState(false)
-    const store = useTodoContext()
-    const allTodos = store.allTodos
+    const [sorted, setSorted] = useState(false);
+    const store = useTodoContext();
+    const allTodos = store.getAllTodos();
+    const filter = store.getFilterStatus();
+    let filteredTodos: ITodo[] =[];
 
     console.log('list render!');
 
-    const hanldChangeStatus = useCallback((id: string) => {
-        store.changeTodoStatus(id)
-    }, [store]);
-
-    const handlDeleteItem = useCallback((id:string)=>{
-        store.deleteTodo(id)
-    }, []);
-  
-    if(sorted) allTodos.sort((a, b) => Number(a?.status) - Number(b?.status));
+    if(filter === null) {
+        filteredTodos = [...allTodos]
+    } else {
+        allTodos.forEach(item=> {
+            if(item.status === filter) filteredTodos.push(item)
+        })
+    }
+        
+    if(sorted) {
+        filteredTodos.sort((a, b) => Number(a?.status) - Number(b?.status));
+    }
+    
+   
+    
 
     return (
         <>
@@ -28,8 +36,8 @@ const ListOfTodos:React.FC = observer(() => {
             </div>
             {!!allTodos.length && 
                 <ul className='todoList'>
-                    {allTodos.map((item) => {
-                        return <TodoItem key={item.id} todo={item} changeStatus={hanldChangeStatus} deleteItem={handlDeleteItem}/>
+                    {filteredTodos.reverse().map((item) => {
+                        return <TodoItem key={item.id} todo={item}/>
                     }
                     )}
                 </ul> 

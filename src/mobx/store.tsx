@@ -4,21 +4,11 @@ import { toast } from "react-toastify";
 import { ITodo } from "../interfaces/interfaces";
 
 class Store {
-    allTodos: ITodo[] = [];
+    private allTodos: ITodo[] = [];
     private filterStatus:boolean | null = null;
     constructor() {
         makeAutoObservable(this);
         this.allTodos = this.loadFromLocalStorage();
-    }
-
-    getFilteredTodos() {
-        const filteredTodos: ITodo[] = []
-        this.allTodos.forEach(todo => {
-            if(this.filterStatus === null) filteredTodos.push(todo);
-            if(this.filterStatus === todo.status) filteredTodos.push(todo);
-            return;
-          });
-        return filteredTodos;
     }
 
     getAllTodos() {
@@ -43,6 +33,7 @@ class Store {
         }
 
         this.allTodos.splice(index, 1);
+        this.saveToLocalStorage()
     };
     changeTodoStatus(changeId: string) {
         const changeTodo = this.allTodos.find(todo=> todo.id === changeId);
